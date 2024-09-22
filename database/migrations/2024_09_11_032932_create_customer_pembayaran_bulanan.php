@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('payment_date');
             $table->bigInteger('amount');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
