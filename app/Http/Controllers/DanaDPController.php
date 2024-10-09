@@ -12,21 +12,24 @@ use Illuminate\Support\Carbon;
 class DanaDPController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create(Customer $customer)
     {
         //
-        return view('danadp.create')->with('data_customer', $customer);
-        
+        Log::info("View Create Dana DP Page");
+        try{
+            return view('danadp.create')->with('data_customer', $customer); 
+        } catch (\Exception $e){
+            Log::error("Error: View Create Dana DP Page Failed", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->back()
+                ->with('error', 'An error occurred while displaying data.')
+                ->withInput();
+        }
     }
 
     /**
@@ -68,12 +71,12 @@ class DanaDPController extends Controller
 
             // Store customer
             $dana_dp = DanaDP::create($validatedData);
-            $newData = $dana_dp->fresh()->toArray();
+            $new_data = $dana_dp->fresh()->toArray();
             
-            Log::info("Customer Stored", [
+            Log::info("Dana DP Stored", [
                 'request_id' => $request_id,
-                'customer_id' => $dana_dp->id,
-                'changes' => $newData
+                'dana_dp_id' => $dana_dp->id,
+                'changes' => $new_data
             ]);
 
 
@@ -97,30 +100,6 @@ class DanaDPController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(DanaDP $dana_dp)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(DanaDP $dana_dp)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateDanaDPRequest $request, DanaDP $dana_dp)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(DanaDP $dana_dp)
@@ -130,7 +109,7 @@ class DanaDPController extends Controller
 
         Log::info("Start: Dana DP Delete Process", [
             'request_id' => $request_id,
-            'customer_id' => $dana_dp->id,
+            'dana_dp_id' => $dana_dp->id,
             'user_id' => auth()->id() ?? 'unauthenticated'
         ]);
 

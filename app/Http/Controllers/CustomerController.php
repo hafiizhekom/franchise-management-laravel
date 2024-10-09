@@ -23,7 +23,7 @@ class CustomerController extends Controller
                 return $customer;
             });
 
-            return view('customer.index')->with('datas', $customers);
+            return view('customer.index')->with('data_customers', $customers);
         } catch (\Exception $e){
             Log::error("Error: View All Customers Page Failed", [
                 'error' => $e->getMessage(),
@@ -47,7 +47,7 @@ class CustomerController extends Controller
                 return $customer;
             });
 
-            return view('customer.index')->with('datas', $customers);
+            return view('customer.index')->with('data_customers', $customers);
         } catch (\Exception $e){
             Log::error("Error: View Active Customers Page Failed", [
                 'error' => $e->getMessage(),
@@ -71,7 +71,7 @@ class CustomerController extends Controller
                 return $customer;
             });
 
-            return view('customer.index')->with('datas', $customers);
+            return view('customer.index')->with('data_customers', $customers);
         } catch (\Exception $e){
             Log::error("Error: View Candidate Customers Page Failed", [
                 'error' => $e->getMessage(),
@@ -90,7 +90,19 @@ class CustomerController extends Controller
     public function create()
     {
         //
-        return view('customer.create');
+        Log::info("View Create Customer Page");
+        try{
+            return view('customer.create');
+        } catch (\Exception $e){
+            Log::error("Error: View Create Customer Page Failed", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->back()
+                ->with('error', 'An error occurred while displaying data.')
+                ->withInput();
+        }
     }
 
     /**
@@ -131,12 +143,12 @@ class CustomerController extends Controller
 
             // Store customer
             $customer = Customer::create($validatedData);
-            $newData = $customer->fresh()->toArray();
+            $new_data = $customer->fresh()->toArray();
             
             Log::info("Customer Stored", [
                 'request_id' => $requestId,
                 'customer_id' => $customer->id,
-                'changes' => $newData
+                'changes' => $new_data
             ]);
 
 
@@ -165,7 +177,19 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('customer.show')->with('data', $customer);
+        Log::info("View Create Customer Detail Page");
+        try{
+            return view('customer.show')->with('data', $customer);
+        } catch (\Exception $e){
+            Log::error("Error: View Create Customer Detail Page Failed", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->back()
+                ->with('error', 'An error occurred while displaying data.')
+                ->withInput();
+        }
     }
 
     /**
@@ -173,7 +197,19 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('customer.edit')->with('data', $customer);
+        Log::info("View Create Customer Edit Page");
+        try{
+            return view('customer.edit')->with('data', $customer);
+        } catch (\Exception $e){
+            Log::error("Error: View Create Customer Edit Page Failed", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->back()
+                ->with('error', 'An error occurred while displaying data.')
+                ->withInput();
+        }
     }
 
     /**
@@ -181,8 +217,6 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        
-
         $requestId = uniqid('req_');
 
         Log::info("Start: Customer Update Process", [
@@ -216,12 +250,12 @@ class CustomerController extends Controller
             // Update customer
             $oldData = $customer->toArray();
             $customer->update($validatedData);
-            $newData = $customer->fresh()->toArray();
+            $new_data = $customer->fresh()->toArray();
 
             Log::info("Customer Updated", [
                 'request_id' => $requestId,
                 'customer_id' => $customer->id,
-                'changes' => array_diff_assoc($newData, $oldData)
+                'changes' => array_diff_assoc($new_data, $oldData)
             ]);
 
 

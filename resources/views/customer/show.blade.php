@@ -85,7 +85,7 @@
                                         )->amount ?
                                         'Jumlah Pembayaran: Rp.'.number_format(optional($data->danakomitmen)->amount, 0, ',', '.')
                                         : 
-                                        'Jumlah Pembayaran: <a href="'.route('customer.danakomitmen.create', $data->id).'">Set DK</a>' 
+                                        'Jumlah Pembayaran: <a href="'.route('danakomitmen.create', $data->id).'">Set DK</a>' 
                                     !!}
                                 </td>
                                 <td>
@@ -95,7 +95,7 @@
                                         )->payment_date ?
                                         'Tanggal Pembayaran:'.$carbon::parse(optional($data->danakomitmen)->payment_date)->format('d M Y')
                                         : 
-                                        'Tanggal Pembayaran: <a href="'.route('customer.danakomitmen.create', $data->id).'">Set DK</a>' 
+                                        'Tanggal Pembayaran: <a href="'.route('danakomitmen.create', $data->id).'">Set DK</a>' 
                                     !!}
                                 </td>
                                 <td>
@@ -120,7 +120,7 @@
                                             optional(optional($data->danakomitmen)->danadp)->amount ?
                                             'Jumlah Pembayaran: Rp.'.number_format(optional(optional($data->danakomitmen)->danadp)->amount, 0, ',', '.')
                                             : 
-                                            'Jumlah Pembayaran: <a href="'.route('customer.danadp.create', $data->id).'">Set Dana DP</a>' 
+                                            'Jumlah Pembayaran: <a href="'.route('danadp.create', $data->id).'">Set Dana DP</a>' 
                                         !!}
                                     </td>
                                     <td>
@@ -128,7 +128,7 @@
                                             optional(optional($data->danakomitmen)->danadp)->payment_date ?
                                             'Tanggal Pembayaran:'.$carbon::parse(optional(optional($data->danakomitmen)->danadp)->payment_date)->format('d M Y')
                                             : 
-                                            'Tanggal Pembayaran: <a href="'.route('customer.danadp.create', $data->id).'">Set Dana DP</a>' 
+                                            'Tanggal Pembayaran: <a href="'.route('danadp.create', $data->id).'">Set Dana DP</a>' 
                                         !!}
                                     </td>
                                     <td>
@@ -154,7 +154,7 @@
                                             optional(optional(optional($data->danakomitmen)->danadp)->danapelunasan)->amount ?
                                             'Jumlah Pembayaran: Rp.'.number_format(optional(optional(optional($data->danakomitmen)->danadp)->danapelunasan)->amount, 0, ',', '.')
                                             : 
-                                            'Jumlah Pembayaran: <a href="'.route('customer.danapelunasan.create', $data->id).'">Set Dana Pelunasan</a>' 
+                                            'Jumlah Pembayaran: <a href="'.route('danapelunasan.create', $data->id).'">Set Dana Pelunasan</a>' 
                                         !!}
                                     </td>
                                     <td>
@@ -162,7 +162,7 @@
                                             optional(optional(optional($data->danakomitmen)->danadp)->danapelunasan)->payment_date ?
                                             'Tanggal Pembayaran:'.$carbon::parse(optional(optional(optional($data->danakomitmen)->danadp)->danapelunasan)->payment_date)->format('d M Y')
                                             : 
-                                            'Tanggal Pembayaran: <a href="'.route('customer.danapelunasan.create', $data->id).'">Set Dana Pelunasan</a>' 
+                                            'Tanggal Pembayaran: <a href="'.route('danapelunasan.create', $data->id).'">Set Dana Pelunasan</a>' 
                                         !!}
                                     </td>
                                     <td>

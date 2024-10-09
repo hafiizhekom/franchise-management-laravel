@@ -12,20 +12,24 @@ use Illuminate\Support\Carbon;
 class DanaPelunasanController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create(Customer $customer)
     {
-        //
-        return view('danapelunasan.create')->with('data_customer', $customer);
+        //        
+        Log::info("View Create Dana Pelunasan Page");
+        try{
+            return view('danapelunasan.create')->with('data_customer', $customer);
+        } catch (\Exception $e){
+            Log::error("Error: View Create Dana Pelunasan Page Failed", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->back()
+                ->with('error', 'An error occurred while displaying data.')
+                ->withInput();
+        }
     }
 
     /**
@@ -67,12 +71,12 @@ class DanaPelunasanController extends Controller
 
             // Store customer
             $dana_pelunasan = DanaPelunasan::create($validatedData);
-            $newData = $dana_pelunasan->fresh()->toArray();
+            $new_data = $dana_pelunasan->fresh()->toArray();
             
-            Log::info("Customer Stored", [
+            Log::info("Dana Pelunasan Stored", [
                 'request_id' => $request_id,
-                'customer_id' => $dana_pelunasan->id,
-                'changes' => $newData
+                'dana_pelunasan_id' => $dana_pelunasan->id,
+                'changes' => $new_data
             ]);
 
 
@@ -96,30 +100,6 @@ class DanaPelunasanController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(DanaPelunasan $danaPelunasan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(DanaPelunasan $dana_pelunasan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateDanaPelunasanRequest $request, DanaPelunasan $dana_pelunasan)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(DanaPelunasan $dana_pelunasan)
@@ -129,7 +109,7 @@ class DanaPelunasanController extends Controller
 
         Log::info("Start: Dana Pelunasan Delete Process", [
             'request_id' => $request_id,
-            'customer_id' => $dana_pelunasan->id,
+            'dana_pelunasan_id' => $dana_pelunasan->id,
             'user_id' => auth()->id() ?? 'unauthenticated'
         ]);
 
@@ -143,7 +123,7 @@ class DanaPelunasanController extends Controller
                 'dana_pelunasan_id'=>$dana_pelunasan->id,
                 'customer_id' => $customer_id,
                 'customer_name' => $customer_name
-            ]);
+            ]); 
 
             return redirect()->route('customer.show', $customer_id)
                 ->with('success', "Dana Pelunasan '{$customer_name}' has been deleted successfully");

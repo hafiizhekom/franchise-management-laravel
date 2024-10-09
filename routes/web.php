@@ -5,8 +5,10 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DanaKomitmenController;
 use App\Http\Controllers\DanaDPController;
 use App\Http\Controllers\DanaPelunasanController;
+use App\Http\Controllers\PembayaranBulananController;
 
 use App\Livewire\Counter;
+use App\Models\PembayaranBulanan;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,33 +23,32 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    //ROUTING CUSTOMER
     Route::get('customer/active', [CustomerController::class, 'indexActive'])->name('customer.active');
     Route::get('customer/candidate', [CustomerController::class, 'indexCandidate'])->name('customer.candidate');
     Route::resource('customer', CustomerController::class);
 
     // ROUTING DANA KOMITMEN
-    Route::get('danakomitmen/create/{customer}',[DanaKomitmenController::class, 'create'])->name('customer.danakomitmen.create');
-    Route::resource('danakomitmen', DanaKomitmenController::class, [
-        'parameters' => ['danakomitmen' => 'dana_komitmen']
-    ]);
+    Route::get('danakomitmen/create/{customer}',[DanaKomitmenController::class, 'create'])->name('danakomitmen.create');
+    Route::post('danakomitmen', [DanaKomitmenController::class, 'store'])->name('danakomitmen.store');
+    Route::delete('danakomitmen/{dana_komitmen}', [DanaKomitmenController::class, 'destroy'])->name('danakomitmen.destroy');
 
     // ROUTING DANA DP
-    Route::get('danadp/create/{customer}',[DanaDPController::class, 'create'])->name('customer.danadp.create');
-    Route::resource('danadp', DanaDPController::class, [
-        'parameters' => ['danadp' => 'dana_dp']
-    ]);
+    Route::get('danadp/create/{customer}',[DanaDPController::class, 'create'])->name('danadp.create');
+    Route::post('danadp', [DanaDPController::class, 'store'])->name('danadp.store');
+    Route::delete('danadp/{dana_dp}', [DanaDPController::class, 'destroy'])->name('danadp.destroy');
 
     // ROUTING DANA PELUNASAN
-    Route::get('danapelunasan/create/{customer}',[DanaPelunasanController::class, 'create'])->name('customer.danapelunasan.create');
-    Route::resource('danapelunasan', DanaPelunasanController::class, [
-        'parameters' => ['danapelunasan' => 'dana_pelunasan']
-    ]);
+    Route::get('danapelunasan/create/{customer}',[DanaPelunasanController::class, 'create'])->name('danapelunasan.create');
+    Route::post('danapelunasan', [DanaPelunasanController::class, 'store'])->name('danapelunasan.store');
+    Route::delete('danapelunasan/{dana_pelunasan}', [DanaPelunasanController::class, 'destroy'])->name('danapelunasan.destroy');
 
-    
-    
-    // Route::get('dana-komitmen/{id}', [DanaKomitmenController::class, 'show'])->name('danakomitmen.show');
-    // Route::get('danakomitmen/{danaKomitmen}', [DanaKomitmenController::class, 'show'])->name('danakomitmen.show');
-    
-    // Route::resource('danakomitmen', DanaKomitmenController::class);
-    
+    //ROUTING PEMBAYARAN BULANAN
+    Route::get('pembayaran/bulanan/create', [PembayaranBulananController::class, 'createCustomer'])->name('bulanan.create.customer');
+    Route::get('pembayaran/bulanan/create/{customer}',[PembayaranBulananController::class, 'createPeriod'])->name('bulanan.create.period');
+    Route::get('pembayaran/bulanan/year/{year}',[PembayaranBulananController::class, 'index'])->name('bulanan.index');
+    Route::get('pembayaran/bulanan/detail/{customer}',[PembayaranBulananController::class, 'show'])->name('bulanan.show');
+    Route::post('pembayaran/bulanan/', [PembayaranBulananController::class, 'store'])->name('bulanan.store');
+    Route::delete('pembayaran/bulanan/{pembayaran_bulanan}', [PembayaranBulananController::class, 'destroy'])->name('bulanan.destroy');
+
 });

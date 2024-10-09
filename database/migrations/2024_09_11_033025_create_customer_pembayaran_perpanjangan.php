@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('customer_pembayaran_perpanjangan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->nullable();
-            $table->integer('tahun');
+            $table->integer('year');
             $table->dateTime('payment_date');
             $table->bigInteger('amount');
             $table->timestamps();

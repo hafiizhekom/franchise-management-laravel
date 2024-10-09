@@ -26,7 +26,7 @@
             </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($datas as $data)
+            @foreach($data_customers as $data)
                 <tr>
                     <td><a href="{{ route('customer.show', $data->id) }}">{{$data->name}}</a></td>
                     <td>{{$data->phone}}</td>
@@ -41,7 +41,7 @@
                             </span>"></i>
                             {{$carbon::parse(optional($data->danakomitmen)->payment_date)->format('d M Y')}}
                         @else
-                            <a href="{{route('customer.danakomitmen.create', $data->id)}}">Set DK</a>
+                            <a href="{{route('danakomitmen.create', $data->id)}}">Set DK</a>
                         @endif
                     </td>
 
@@ -55,7 +55,7 @@
                             </span>"></i>
                             {{$carbon::parse(optional($data->danakomitmen->danadp)->payment_date)->format('d M Y')}}
                         @elseif($data->danakomitmen)
-                            <a href="{{route('customer.danadp.create', $data->id)}}">Set DP</a>
+                            <a href="{{route('danadp.create', $data->id)}}">Set DP</a>
                         @else
                             -
                         @endif
@@ -71,7 +71,7 @@
                             </span>"></i>
                             {{$carbon::parse(optional($data->danakomitmen->danadp->danapelunasan)->payment_date)->format('d M Y')}}
                         @elseif(optional($data->danakomitmen)->danadp)
-                            <a href="{{route('customer.danapelunasan.create', $data->id)}}">Set Pelunasan</a>
+                            <a href="{{route('danapelunasan.create', $data->id)}}">Set Pelunasan</a>
                         @else
                             -
                         @endif
@@ -103,7 +103,7 @@
     <!--/ Basic Bootstrap Table -->
 @endsection
 
-@foreach($datas as $data)
+@foreach($data_customers as $data)
     @push('modal')
         <!-- Small Modal -->
         <div class="modal fade" id="deleteModal{{$data->id}}" tabindex="-1" aria-hidden="true">

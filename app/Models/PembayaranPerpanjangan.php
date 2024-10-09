@@ -16,7 +16,7 @@ class PembayaranPerpanjangan extends Model
 
     protected $fillable = [
         'customer_id',
-        'tahun',
+        'year',
         'payment_date',
         'amount',
     ];

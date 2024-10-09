@@ -11,25 +11,18 @@ use Illuminate\Support\Carbon;
 
 class DanaKomitmenController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Show the form for creating a new resource.
      */
-    public function index()
+    public function create(Customer $customer)
     {
         //
-        //
-        Log::info("View All Dana Komitmen Page");
-
+        Log::info("View Create Dana Komitmen Page");
         try{
-            $dana_komitmens = DanaKomitmen::all()->map(function (DanaKomitmen $dana_komitmen) {
-                if ($dana_komitmen->customer && !$dana_komitmen->customer->trashed()) {
-                    return $dana_komitmen;
-                }
-            })->filter();
-
-            return view('dana_komitmen.index')->with('datas', $dana_komitmens);
+            return view('danakomitmen.create')->with('data_customer', $customer);
         } catch (\Exception $e){
-            Log::error("Error: View All Dana Komitmen Page Failed", [
+            Log::error("Error: View Create Dana Komitmen Page Failed", [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
@@ -38,15 +31,6 @@ class DanaKomitmenController extends Controller
                 ->with('error', 'An error occurred while displaying data.')
                 ->withInput();
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Customer $customer)
-    {
-        //
-        return view('danakomitmen.create')->with('data_customer', $customer);
     }
 
     /**
@@ -88,12 +72,12 @@ class DanaKomitmenController extends Controller
 
             // Store customer
             $dana_komitmen = DanaKomitmen::create($validatedData);
-            $newData = $dana_komitmen->fresh()->toArray();
+            $new_data = $dana_komitmen->fresh()->toArray();
             
-            Log::info("Customer Stored", [
+            Log::info("Dana Komitmen Stored", [
                 'request_id' => $request_id,
-                'customer_id' => $dana_komitmen->id,
-                'changes' => $newData
+                'dana_komitmen_id' => $dana_komitmen->id,
+                'changes' => $new_data
             ]);
 
 
@@ -118,33 +102,8 @@ class DanaKomitmenController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(DanaKomitmen $dana_komitmen)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(DanaKomitmen $dana_komitmen)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateDanaKomitmenRequest $request, DanaKomitmen $dana_komitmen)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
-
     public function destroy(DanaKomitmen $dana_komitmen)
     {
         //
@@ -152,7 +111,7 @@ class DanaKomitmenController extends Controller
 
         Log::info("Start: Dana Komitmen Delete Process", [
             'request_id' => $request_id,
-            'customer_id' => $dana_komitmen->id,
+            'dana_komitmen_id' => $dana_komitmen->id,
             'user_id' => auth()->id() ?? 'unauthenticated'
         ]);
 

@@ -8,6 +8,8 @@ use App\Models\Customer;
 use App\Models\DanaKomitmen;
 use App\Models\DanaDP;
 use App\Models\DanaPelunasan;
+use App\Models\PembayaranBulanan;
+use App\Models\PembayaranPerpanjangan;
 
 class CustomerSeeder extends Seeder
 {
@@ -28,6 +30,8 @@ class CustomerSeeder extends Seeder
                             )
                     )
             )
+            ->has(PembayaranBulanan::factory()->count(rand(1,12)))
+            // ->has(PembayaranPerpanjangan::factory())
             ->create();
     }
 

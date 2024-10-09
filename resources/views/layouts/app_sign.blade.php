@@ -1,3 +1,4 @@
+@inject('carbon', 'Carbon\Carbon')
 <!doctype html>
 
 <html
@@ -190,45 +191,12 @@
                 </li>
               </ul>
             </li>
-
-            <!-- Dana Customer -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Dana Customer</span>
-            </li>
-            <li class="menu-item">
-              <a
-                href="#"
-                target="_blank"
-                class="menu-link">
-                <i class="menu-icon tf-icons bx bx-dice-1"></i>
-                <div class="text-truncate">Dana Komitmen</div>
-                <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a
-                href="#"
-                target="_blank"
-                class="menu-link">
-                <i class="menu-icon tf-icons bx bx-dice-1"></i>
-                <div class="text-truncate">Dana DP</div>
-              </a>
-            </li>
-             <li class="menu-item">
-              <a
-                href="#"
-                target="_blank"
-                class="menu-link">
-                <i class="menu-icon tf-icons bx bx-dice-1"></i>
-                <div class="text-truncate">Dana Pelunasan</div>
-              </a>
-            </li>
            
             <!-- Pembayaran -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Pembayaran</span></li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{{route('bulanan.index', $carbon->now()->format('Y'))}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div class="text-truncate">Pembayaran Bulanan</div>
               </a>
