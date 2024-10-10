@@ -31,7 +31,7 @@ class CustomerSeeder extends Seeder
                     )
             )
             ->has(PembayaranBulanan::factory()->count(rand(1,12)))
-            // ->has(PembayaranPerpanjangan::factory())
+            ->has(PembayaranPerpanjangan::factory()->count(rand(1,12)))
             ->create();
     }
 

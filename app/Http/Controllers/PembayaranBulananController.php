@@ -43,6 +43,7 @@ class PembayaranBulananController extends Controller
                         
                         return [$period_name => $has_payment_in_period ? True : False];
                     });
+                
 
                     $all_data = $customer_data->map(function ($item) {
                         return [
@@ -56,15 +57,11 @@ class PembayaranBulananController extends Controller
                         ];
                     });
 
-                    $payments_periods_count = $customer_data->filter(function ($item) use ($year) {
-                        return strpos($item->period, $year) !== false;
-                    })->count();
-
                     return array_merge(
                         ['customer' => Customer::where('id', $customer_id)->firstOrFail()],
                         ['payments_period_data' => $period_status->toArray()],
                         [
-                            'payments_periods_count' => $payments_periods_count,
+                            'payments_periods_count' => count(array_filter($period_status->toArray())),
                             'all_data' => $all_data
                         ]
                     );

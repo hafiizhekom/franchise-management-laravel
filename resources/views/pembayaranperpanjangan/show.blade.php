@@ -4,7 +4,7 @@
 @section('title', 'Customer')
 
 @push('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{route('bulanan.index', $carbon->now()->format('Y'))}}">Pembayaran Bulanan</a></li>
+    <li class="breadcrumb-item"><a href="{{route('perpanjangan.index')}}">Pembayaran Perpanjangan</a></li>
 @endpush
 
 @push('breadcrumb')
@@ -16,31 +16,31 @@
 @section('content')
     <!-- Basic Bootstrap Table -->
     <div class="card">
-    <h5 class="card-header">Pembayaran Bulanan - {{$data_customer->name}} </h5>
+    <h5 class="card-header">Pembayaran Perpanjangan - {{$data_customer->name}} </h5>
     <div class="table-responsive text-nowrap">
         <table class="table">
         <thead>
             <tr>
-                <th>Period</th>
+                <th>Year</th>
                 <th>Amount</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @if($data_customer->pembayaranbulanan->count()==0)
+            @if($data_customer->pembayaranperpanjangan->count()==0)
                 <tr><td colspan="3">No Record</td></tr>
             @endif
 
-            @foreach($data_customer->pembayaranbulanan->sortBy('period') as $pembayaran)
+            @foreach($data_customer->pembayaranperpanjangan->sortBy('year') as $pembayaran)
                 <tr>
-                    <td>{{$carbon->parse($pembayaran->period)->format('F Y')}}</td>
+                    <td>{{$carbon->createFromDate($pembayaran->year,1,1)->format('Y')}}</td>
                     <td>Rp.{{number_format($pembayaran->amount, 0, ',', '.')}}</td>
                     <td>
-                    @if($pembayaran->period == $data_last_period)
+                    @if($pembayaran->year == $data_last_year)
                         @php
                             $id_last_pembayaran = $pembayaran->id;
                         @endphp
-                        <button type="button" class="btn btn-icon me-2 btn-danger" data-bs-toggle="modal" data-bs-target="#deletePembayaranBulananModal">
+                        <button type="button" class="btn btn-icon me-2 btn-danger" data-bs-toggle="modal" data-bs-target="#deletePembayaranPerpanjanganModal">
                             <span class="tf-icons bx bx-trash bx-22px"></span>
                         </button>
                     @endif
@@ -57,7 +57,7 @@
 @if(isset($id_last_pembayaran))
 @push('modal')
     <!-- Small Modal -->
-    <div class="modal fade" id="deletePembayaranBulananModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="deletePembayaranPerpanjanganModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -69,7 +69,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="{{ route('bulanan.destroy', $id_last_pembayaran) }}" method="POST">
+                <form action="{{ route('perpanjangan.destroy', $id_last_pembayaran) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><i class="bx bx-trash me-1"></i> Delete</button>

@@ -42,7 +42,7 @@
         <tbody class="table-border-bottom-0">
             @foreach($datas['periods_data'] as $data)
                 <tr>
-                    <td>{{$data['customer']->name}}</td>
+                    <td><a href="{{route('bulanan.show', $data['customer']->id)}}">{{$data['customer']->name}}</a></td>
                     @foreach($data['payments_period_data'] as $key => $value)
                         <td>{!! $value ? "<i class='bx bx-check-circle'></i>" : "-" !!}</td>
                     @endforeach 

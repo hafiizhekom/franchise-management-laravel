@@ -6,9 +6,11 @@ use App\Http\Controllers\DanaKomitmenController;
 use App\Http\Controllers\DanaDPController;
 use App\Http\Controllers\DanaPelunasanController;
 use App\Http\Controllers\PembayaranBulananController;
-
+use App\Http\Controllers\PembayaranPerpanjanganController;
+use App\Http\Controllers\UserController;
 use App\Livewire\Counter;
 use App\Models\PembayaranBulanan;
+use App\Models\PembayaranPerpanjangan;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,8 +22,11 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dashboard2');
     })->name('dashboard');
+
+    //ROUTING CUSTOMER
+    Route::resource('user', UserController::class);
 
     //ROUTING CUSTOMER
     Route::get('customer/active', [CustomerController::class, 'indexActive'])->name('customer.active');
@@ -51,4 +56,10 @@ Route::middleware([
     Route::post('pembayaran/bulanan/', [PembayaranBulananController::class, 'store'])->name('bulanan.store');
     Route::delete('pembayaran/bulanan/{pembayaran_bulanan}', [PembayaranBulananController::class, 'destroy'])->name('bulanan.destroy');
 
+    Route::get('pembayaran/perpanjangan/create', [PembayaranPerpanjanganController::class, 'createCustomer'])->name('perpanjangan.create.customer');
+    Route::get('pembayaran/perpanjangan/create/{customer}',[PembayaranPerpanjanganController::class, 'createPeriod'])->name('perpanjangan.create.period');
+    Route::get('pembayaran/perpanjangan', [PembayaranPerpanjanganController::class, 'index'])->name('perpanjangan.index');
+    Route::get('pembayaran/perpanjangan/detail/{customer}',[PembayaranPerpanjanganController::class, 'show'])->name('perpanjangan.show');
+    Route::post('pembayaran/perpanjangan/', [PembayaranPerpanjanganController::class, 'store'])->name('perpanjangan.store');
+    Route::delete('pembayaran/perpanjangan/{pembayaran_perpanjangan}', [PembayaranPerpanjanganController::class, 'destroy'])->name('perpanjangan.destroy');
 });

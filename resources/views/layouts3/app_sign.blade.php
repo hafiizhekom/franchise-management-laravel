@@ -195,15 +195,15 @@
             <!-- Pembayaran -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Pembayaran</span></li>
             
-            <li class="menu-item">
+            <li class="menu-item  {{request()->routeIs('bulanan.*') ? 'active' : '' }}">
               <a href="{{route('bulanan.index', $carbon->now()->format('Y'))}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div class="text-truncate">Pembayaran Bulanan</div>
               </a>
             </li>
 
-             <li class="menu-item">
-              <a href="#" class="menu-link">
+             <li class="menu-item  {{request()->routeIs('perpanjangan.*') ? 'active' : '' }}">
+              <a href="{{route('perpanjangan.index', $carbon->now()->format('Y'))}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div class="text-truncate">Pembayaran Perpanjangan</div>
               </a>

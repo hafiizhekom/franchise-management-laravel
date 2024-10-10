@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
-class StorePembayaranBulananRequest extends FormRequest
+class StorePembayaranPerpanjanganRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,10 +34,10 @@ class StorePembayaranBulananRequest extends FormRequest
                 'max:9999999999', // Sesuaikan dengan batas maksimum yang Anda inginkan
             ],
             'payment_date' => 'required|date',
-            'period' => [
+            'year' => [
                 'required',
-                'date_format:Y-m-d',
-                Rule::unique('customer_pembayaran_bulanan')
+                'date_format:Y',
+                Rule::unique('customer_pembayaran_perpanjangan')
                     ->where(function ($query) {
                         return $query->where('customer_id', $this->customer_id);
                     })
@@ -52,15 +52,6 @@ class StorePembayaranBulananRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
-    {
-        if ($this->has('period')) {
-            $this->merge([
-                'period' => Carbon::createFromFormat('M/Y', $this->period)->startOfMonth()->format('Y-m-d'),
-            ]);
-        }
-    }
-
     public function messages(): array
     {
         return [
@@ -70,9 +61,9 @@ class StorePembayaranBulananRequest extends FormRequest
             'amount.max' => ':attribute terlalu besar.',
             'payment_date.required' => ':attribute harus diisi.',
             'payment_date.date' => 'Format :attribute tidak valid.',
-            'period.required' => ':attribute harus diisi.',
-            'period.date_format' => 'Format :attribute harus YYYY-MM-DD.',
-            'period.unique' => ':attribute ini sudah ada untuk customer yang bersangkutan.',
+            'year.required' => ':attribute harus diisi.',
+            'year.date_format' => 'Format :attribute harus YYYY-MM-DD.',
+            'year.unique' => ':attribute ini sudah ada untuk customer yang bersangkutan.',
             'customer_id.required' => ':attribute harus diisi.',
             'customer_id.integer' => ':attribute harus berupa angka bulat.',
             'customer_id.exists' => 'Customer dengan :attribute tersebut tidak ditemukan.',
@@ -84,7 +75,7 @@ class StorePembayaranBulananRequest extends FormRequest
         return [
             'amount' => 'Jumlah pembayaran',
             'payment_date' => 'Tanggal pembayaran',
-            'period' => 'Periode pembayaran',
+            'year' => 'Tahun pembayaran',
             'customer_id' => 'ID Customer',
         ];
     }
