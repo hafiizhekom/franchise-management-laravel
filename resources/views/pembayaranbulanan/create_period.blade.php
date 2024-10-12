@@ -1,5 +1,5 @@
 @inject('carbon', 'Carbon\Carbon')
-@extends('layouts.app_sign')
+@extends('layouts_sneat.app_sign')
  
 @section('title', 'Set Pembayaran Bulanan')
 

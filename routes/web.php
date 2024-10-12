@@ -22,7 +22,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard2');
+        return view('dashboard');
     })->name('dashboard');
 
     //ROUTING CUSTOMER
