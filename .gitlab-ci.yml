@@ -9,7 +9,7 @@ mirror_to_github:
     - git config --global user.email "${GITHUB_EMAIL}"
     - git clone --mirror "${CI_REPOSITORY_URL}" repo
     - cd repo
-    - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${REPO_NAME}.git
+    - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/franchise-management-laravel.git
     - git push --mirror github
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
