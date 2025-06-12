@@ -1,20 +1,20 @@
 # Franchise Management
 
-Aplikasi manajemen franchise berbasis Laravel 11, Jetstream, Livewire, dan Tailwind CSS.
+A franchise management application built with Laravel 11, Jetstream, Livewire, and Tailwind CSS.
 
-## Fitur
+## Features
 
-- Autentikasi dan otorisasi (Jetstream)
-- Manajemen data franchise
-- UI modern berbasis Sneat Bootstrap Admin Template
-- Livewire untuk komponen interaktif real-time
-- Pengelolaan file dan media
-- Migrasi dan seeder database
-- Dukungan Docker untuk pengembangan lokal
+- Authentication and authorization (Jetstream)
+- Franchise data management
+- Modern UI based on Sneat Bootstrap Admin Template
+- Livewire for real-time interactive components
+- File and media management
+- Database migration and seeder
+- Docker support for local development
 
-## Instalasi
+## Installation
 
-1. **Clone repository**
+1. **Clone the repository**
    ```sh
    git clone <repository-url>
    cd franchise-management
@@ -26,7 +26,7 @@ Aplikasi manajemen franchise berbasis Laravel 11, Jetstream, Livewire, dan Tailw
    npm install
    ```
 
-3. **Copy file environment**
+3. **Copy environment file**
    ```sh
    cp .env.example .env
    ```
@@ -36,18 +36,18 @@ Aplikasi manajemen franchise berbasis Laravel 11, Jetstream, Livewire, dan Tailw
    php artisan key:generate
    ```
 
-5. **Migrasi dan seeder database**
+5. **Run database migration and seeder**
    ```sh
    php artisan migrate --seed
    ```
 
-6. **Jalankan server pengembangan**
+6. **Start development server**
    ```sh
    php artisan serve
    npm run dev
    ```
 
-7. **(Opsional) Jalankan dengan Docker**
+7. **(Optional) Run with Docker**
    ```sh
    docker-compose up -d
    ```
